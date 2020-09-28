@@ -9,10 +9,14 @@ import java.util.OptionalInt;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static com.evanwht.Keywords.DELETE;
+import static com.evanwht.Keywords.FROM;
+import static com.evanwht.Keywords.WHERE;
+
 /**
  * @author evanwht1@gmail.com
  */
-public class DeleteBuilder extends SqlBuilder {
+public class DeleteBuilder {
 
     private String table;
     private final Map<Column, Object> clauses = new LinkedHashMap<>();

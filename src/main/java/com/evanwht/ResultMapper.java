@@ -8,6 +8,6 @@ import java.sql.SQLException;
  */
 @FunctionalInterface
 public interface ResultMapper<T> {
-    T map(ResultSet rs) throws SQLException;
+    T map(final ResultSet rs) throws SQLException;
 }
 

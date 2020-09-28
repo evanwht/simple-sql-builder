@@ -9,10 +9,14 @@ import java.util.OptionalInt;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static com.evanwht.Keywords.SET;
+import static com.evanwht.Keywords.UPDATE;
+import static com.evanwht.Keywords.WHERE;
+
 /**
  * @author evanwht1@gmail.com
  */
-public class UpdateBuilder extends SqlBuilder {
+public class UpdateBuilder {
 
     private String table;
     private final Map<Column, Object> values = new LinkedHashMap<>();

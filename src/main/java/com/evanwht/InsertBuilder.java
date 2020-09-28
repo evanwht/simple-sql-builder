@@ -11,10 +11,14 @@ import java.util.OptionalLong;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static com.evanwht.Keywords.INSERT;
+import static com.evanwht.Keywords.INTO;
+import static com.evanwht.Keywords.VALUES;
+
 /**
  * @author evanwht1@gmail.com
  */
-public class InsertBuilder extends SqlBuilder {
+public class InsertBuilder {
 
     private String table;
     private final Map<Column, Object> values = new LinkedHashMap<>();
