@@ -18,7 +18,7 @@ class InsertBuilderTest {
 
     @Test
     void single() throws SQLException {
-        final String expectedSql = "INSERT INTO phoosball.test_table (varCharCol) VALUES (?);";
+        final String expectedSql = "INSERT INTO test_table (varCharCol) VALUES (?);";
         final InsertBuilder builder = new InsertBuilder()
                 .table("test_table")
                 .value(TestColumns.VAR_CHAR, "val");
@@ -29,7 +29,7 @@ class InsertBuilderTest {
 
     @Test
     void multi() throws SQLException {
-        final String expectedSql = "INSERT INTO phoosball.test_table (varCharCol, intCol, arrayCol) VALUES (?, ?, ?);";
+        final String expectedSql = "INSERT INTO test_table (varCharCol, intCol, arrayCol) VALUES (?, ?, ?);";
         final InsertBuilder builder = new InsertBuilder()
                 .table("test_table")
                 .value(TestColumns.VAR_CHAR, "val")

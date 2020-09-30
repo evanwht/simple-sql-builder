@@ -37,7 +37,7 @@ public class InsertBuilder {
     String createStatement() {
         final StringJoiner sj = new StringJoiner(" ", INSERT, ";")
                 .add(INTO)
-                .add("phoosball." + table);
+                .add(table);
         if (!values.isEmpty()) {
             sj.add(values.keySet()
                          .stream()

@@ -34,7 +34,7 @@ public class DeleteBuilder {
     String createStatement() {
         return new StringJoiner(" ", DELETE, ";")
                 .add(FROM)
-                .add("phoosball." + table)
+                .add(table)
                 .add(WHERE)
                 .add(clauses.entrySet()
                             .stream()

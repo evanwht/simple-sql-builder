@@ -43,7 +43,7 @@ public class UpdateBuilder {
      */
     String createStatement() {
         final StringJoiner sj = new StringJoiner(" ", UPDATE, ";")
-                .add("phoosball." + table)
+                .add(table)
                 .add(SET);
         sj.add(values.keySet().stream()
                      .map(s -> s.getName() + " = ?")

@@ -30,7 +30,7 @@ public class DeleteBuilderTest {
 
     @Test
     void single() throws SQLException {
-        final String expectedSql = "DELETE FROM phoosball.test_table WHERE varCharCol = ?;";
+        final String expectedSql = "DELETE FROM test_table WHERE varCharCol = ?;";
         final DeleteBuilder builder = new DeleteBuilder()
                 .table("test_table")
                 .where(TestColumns.VAR_CHAR, "val");

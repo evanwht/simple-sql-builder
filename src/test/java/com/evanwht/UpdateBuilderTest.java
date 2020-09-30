@@ -25,7 +25,7 @@ public class UpdateBuilderTest {
 
     @Test
     void single() throws SQLException {
-        final String expectedSql = "UPDATE phoosball.test_table SET varCharCol = ?;";
+        final String expectedSql = "UPDATE test_table SET varCharCol = ?;";
         final UpdateBuilder builder = new UpdateBuilder()
                 .table("test_table")
                 .value(TestColumns.VAR_CHAR, "val");
@@ -36,7 +36,7 @@ public class UpdateBuilderTest {
 
     @Test
     void multi() throws SQLException {
-        final String expectedSql = "UPDATE phoosball.test_table SET varCharCol = ?, intCol = ?, arrayCol = ? WHERE intCol = ?;";
+        final String expectedSql = "UPDATE test_table SET varCharCol = ?, intCol = ?, arrayCol = ? WHERE intCol = ?;";
         final UpdateBuilder builder = new UpdateBuilder()
                 .table("test_table")
                 .value(TestColumns.VAR_CHAR, "val")
