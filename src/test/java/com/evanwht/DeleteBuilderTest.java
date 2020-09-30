@@ -2,18 +2,14 @@ package com.evanwht;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author evanwht1@gmail.com
@@ -21,39 +17,15 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DeleteBuilderTest {
 
-    @Mock private Connection db;
-    @Mock private PreparedStatement statement;
-
-    private final Column varCharCol = new Column() {
-        @Override
-        public String getName() {
-            return "varCharCol";
-        }
-
-        @Override
-        public int getType() {
-            return Types.VARCHAR;
-        }
-    };
-    private final Column intCol = new Column() {
-        @Override
-        public String getName() {
-            return "intCol";
-        }
-
-        @Override
-        public int getType() {
-            return Types.INTEGER;
-        }
-    };
+    private final MockDB mockDB = new MockDB();
 
     @Test
     void errorCase() {
         final DeleteBuilder noWhere = new DeleteBuilder().table("test_table");
-        assertThrows(SQLException.class, () -> noWhere.execute(db));
+        assertThrows(SQLException.class, () -> noWhere.execute(mockDB.connection));
 
-        final DeleteBuilder noTable = new DeleteBuilder().where(intCol, 1);
-        assertThrows(SQLException.class, () -> noTable.execute(db));
+        final DeleteBuilder noTable = new DeleteBuilder().where(TestColumns.INT, 1);
+        assertThrows(SQLException.class, () -> noTable.execute(mockDB.connection));
     }
 
     @Test
@@ -61,12 +33,10 @@ public class DeleteBuilderTest {
         final String expectedSql = "DELETE FROM phoosball.test_table WHERE varCharCol = ?;";
         final DeleteBuilder builder = new DeleteBuilder()
                 .table("test_table")
-                .where(varCharCol, "val");
+                .where(TestColumns.VAR_CHAR, "val");
         assertEquals(expectedSql, builder.createStatement());
-        when(db.prepareStatement(expectedSql)).thenReturn(statement);
-        when(statement.executeUpdate()).thenReturn(1);
-        assertEquals(1, builder.execute(db).orElse(0));
-        verify(statement).setObject(1, "val", Types.VARCHAR);
+        assertEquals(1, builder.execute(mockDB.connection).orElse(0));
+        verify(mockDB.statement).setObject(1, "val", Types.VARCHAR);
     }
 
     @Test
@@ -74,13 +44,11 @@ public class DeleteBuilderTest {
         final String expectedSql = "DELETE FROM phoosball.test_table WHERE varCharCol = ? AND intCol = ?;";
         final DeleteBuilder builder = new DeleteBuilder()
                 .table("test_table")
-                .where(varCharCol, "val")
-                .where(intCol, 2);
+                .where(TestColumns.VAR_CHAR, "val")
+                .where(TestColumns.INT, 2);
         assertEquals(expectedSql, builder.createStatement());
-        when(db.prepareStatement(expectedSql)).thenReturn(statement);
-        when(statement.executeUpdate()).thenReturn(1);
-        assertEquals(1, builder.execute(db).orElse(0));
-        verify(statement).setObject(1, "val", Types.VARCHAR);
-        verify(statement).setObject(2, 2, Types.INTEGER);
+        assertEquals(1, builder.execute(mockDB.connection).orElse(0));
+        verify(mockDB.statement).setObject(1, "val", Types.VARCHAR);
+        verify(mockDB.statement).setObject(2, 2, Types.INTEGER);
     }
 }

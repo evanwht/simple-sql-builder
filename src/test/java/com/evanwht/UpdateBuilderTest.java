@@ -21,54 +21,17 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class UpdateBuilderTest {
 
-    @Mock private Connection db;
-    @Mock private PreparedStatement statement;
-
-    private final Column varCharCol = new Column() {
-        @Override
-        public String getName() {
-            return "varCharCol";
-        }
-
-        @Override
-        public int getType() {
-            return Types.VARCHAR;
-        }
-    };
-    private final Column intCol = new Column() {
-        @Override
-        public String getName() {
-            return "intCol";
-        }
-
-        @Override
-        public int getType() {
-            return Types.INTEGER;
-        }
-    };
-    private final Column arrayCol = new Column() {
-        @Override
-        public String getName() {
-            return "arrayCol";
-        }
-
-        @Override
-        public int getType() {
-            return Types.ARRAY;
-        }
-    };
+    private final MockDB mockDB = new MockDB();
 
     @Test
     void single() throws SQLException {
         final String expectedSql = "UPDATE phoosball.test_table SET varCharCol = ?;";
         final UpdateBuilder builder = new UpdateBuilder()
                 .table("test_table")
-                .value(varCharCol, "val");
+                .value(TestColumns.VAR_CHAR, "val");
         assertEquals(expectedSql, builder.createStatement());
-        when(db.prepareStatement(expectedSql)).thenReturn(statement);
-        when(statement.executeUpdate()).thenReturn(1);
-        assertEquals(1, builder.execute(db).orElse(0));
-        verify(statement).setObject(1, "val", Types.VARCHAR);
+        assertEquals(1, builder.execute(mockDB.connection).orElse(0));
+        verify(mockDB.statement).setObject(1, "val", Types.VARCHAR);
     }
 
     @Test
@@ -76,17 +39,15 @@ public class UpdateBuilderTest {
         final String expectedSql = "UPDATE phoosball.test_table SET varCharCol = ?, intCol = ?, arrayCol = ? WHERE intCol = ?;";
         final UpdateBuilder builder = new UpdateBuilder()
                 .table("test_table")
-                .value(varCharCol, "val")
-                .value(intCol, 2)
-                .value(arrayCol, List.of("val1", "val2"))
-                .where(intCol, 1);
+                .value(TestColumns.VAR_CHAR, "val")
+                .value(TestColumns.INT, 2)
+                .value(TestColumns.ARRAY, List.of("val1", "val2"))
+                .where(TestColumns.INT, 1);
         assertEquals(expectedSql, builder.createStatement());
-        when(db.prepareStatement(expectedSql)).thenReturn(statement);
-        when(statement.executeUpdate()).thenReturn(1);
-        assertEquals(1, builder.execute(db).orElse(0));
-        verify(statement).setObject(1, "val", Types.VARCHAR);
-        verify(statement).setObject(2, 2, Types.INTEGER);
-        verify(statement).setObject(3, List.of("val1", "val2"), Types.ARRAY);
-        verify(statement).setObject(4, 1, Types.INTEGER);
+        assertEquals(1, builder.execute(mockDB.connection).orElse(0));
+        verify(mockDB.statement).setObject(1, "val", Types.VARCHAR);
+        verify(mockDB.statement).setObject(2, 2, Types.INTEGER);
+        verify(mockDB.statement).setObject(3, List.of("val1", "val2"), Types.ARRAY);
+        verify(mockDB.statement).setObject(4, 1, Types.INTEGER);
     }
 }
