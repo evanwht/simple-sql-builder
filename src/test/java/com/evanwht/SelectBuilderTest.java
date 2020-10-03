@@ -3,6 +3,7 @@ package com.evanwht;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Or;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.swing.*;
@@ -40,6 +41,18 @@ public class SelectBuilderTest {
         assertTrue(builder.getOne(mockDB.connection).isPresent());
 
         verify(mockDB.statement).setObject(1, "val", Types.VARCHAR);
+    }
+
+    @Test
+    void testOrderBy() throws SQLException {
+        final String expectedSql = "SELECT * FROM test_table ORDER BY varCharCol ASC, intCol DESC;";
+        final SelectBuilder<ResultSet> builder = SelectBuilder.resultSetSelector()
+                .table("test_table")
+                .orderBy(TestColumns.VAR_CHAR, OrderType.ASC)
+                .orderBy(TestColumns.INT, OrderType.DESC);
+
+        assertEquals(expectedSql, builder.createStatement());
+        assertTrue(builder.getOne(mockDB.connection).isPresent());
     }
 
     @Test

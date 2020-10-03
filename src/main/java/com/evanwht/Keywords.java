@@ -1,6 +1,8 @@
 package com.evanwht;
 
 /**
+ * SQL keywords
+ *
  * @author evanwht1@gmail.com
  */
 class Keywords {
@@ -14,5 +16,6 @@ class Keywords {
     static final String INTO = "INTO";
     static final String VALUES = "VALUES";
     static final String WHERE = "WHERE";
+    static final String ORDER_BY = "ORDER BY";
 
 }

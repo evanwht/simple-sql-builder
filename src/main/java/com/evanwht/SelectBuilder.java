@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import static com.evanwht.Keywords.FROM;
+import static com.evanwht.Keywords.ORDER_BY;
 import static com.evanwht.Keywords.SELECT;
 import static com.evanwht.Keywords.WHERE;
 
@@ -26,6 +28,7 @@ public class SelectBuilder<T> {
     private String table;
     private final List<String> columns = new ArrayList<>();
     private final Map<Column, Object> clauses = new LinkedHashMap<>();
+    private final Map<String, OrderType> orders = new HashMap<>();
     private final ResultMapper<T> resultMapper;
 
     /**
@@ -89,6 +92,17 @@ public class SelectBuilder<T> {
     }
 
     /**
+     * Adds a column to order the query results by.
+     *
+     * @param column a {@link Column} representing a column of the table in the db
+     * @return the builder this was invoked on
+     */
+    public SelectBuilder<T> orderBy(final Column column, final OrderType orderType) {
+        orders.put(column.getName(), orderType);
+        return this;
+    }
+
+    /**
      * Builds a SELECT statement for the table, selected columns, and where clauses supplied to this builder.
      * Only be visible for testing.
      *
@@ -107,7 +121,12 @@ public class SelectBuilder<T> {
               .add(clauses.entrySet().stream()
                           .map(e -> e.getKey().getName() + (e.getValue() == null ? " IS NULL" : " = ?"))
                           .collect(Collectors.joining(" AND ")));
-
+        }
+        if (!orders.isEmpty()) {
+            sj.add(ORDER_BY)
+                    .add(orders.entrySet().stream()
+                    .map(e -> e.getKey() + " " + e.getValue().name())
+                    .collect(Collectors.joining(", ")));
         }
         return sj.toString();
     }

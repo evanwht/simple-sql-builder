@@ -16,6 +16,8 @@ import static com.evanwht.Keywords.INTO;
 import static com.evanwht.Keywords.VALUES;
 
 /**
+ * Builds prepared statements for simple INSERT statements.
+ *
  * @author evanwht1@gmail.com
  */
 public class InsertBuilder {
@@ -23,17 +25,33 @@ public class InsertBuilder {
     private String table;
     private final Map<Column, Object> values = new LinkedHashMap<>();
 
+    /**
+     * @param table name of the table to insert data into
+     * @return the builder this was invoked on
+     */
     public InsertBuilder table(final String table) {
         this.table = table;
         return this;
     }
 
+    /**
+     * Adds a column to be inserted in the db.
+     *
+     * @param column a {@link Column} representing a column of the table in the db
+     * @param value the desired value of the column. Can be null
+     * @return the builder this was invoked on
+     */
     public InsertBuilder value(final Column column, final Object value) {
         this.values.put(column, value);
         return this;
     }
 
-    // Visible For Testing
+    /**
+     * Builds a INSERT statement for the select columns in the table supplied to this builder.
+     * Only be visible for testing.
+     *
+     * @return INSERT statement
+     */
     String createStatement() {
         final StringJoiner sj = new StringJoiner(" ", INSERT, ";")
                 .add(INTO)
@@ -52,6 +70,13 @@ public class InsertBuilder {
         return sj.toString();
     }
 
+    /**
+     * Builds the PreparedStatement and sets the necessary values for any where clauses
+     *
+     * @param connection connection to the db to perform this statement on
+     * @return a prepared statement that can be executed
+     * @throws SQLException if the table name was empty or an error occurred performing the query
+     */
     public OptionalLong execute(final Connection connection) throws SQLException {
         if (table == null) {
             throw new SQLException("No table defined");

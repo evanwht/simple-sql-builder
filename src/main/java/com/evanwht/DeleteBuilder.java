@@ -14,6 +14,8 @@ import static com.evanwht.Keywords.FROM;
 import static com.evanwht.Keywords.WHERE;
 
 /**
+ * Builds prepared statements for simple DELETE statements.
+ *
  * @author evanwht1@gmail.com
  */
 public class DeleteBuilder {
@@ -21,16 +23,33 @@ public class DeleteBuilder {
     private String table;
     private final Map<Column, Object> clauses = new LinkedHashMap<>();
 
+    /**
+     * @param table name of the table to delete data from
+     * @return the builder this was invoked on
+     */
     public DeleteBuilder table(final String table) {
         this.table = table;
         return this;
     }
 
+    /**
+     * Adds a clause to the delete statement to delete only certain rows.
+     *
+     * @param column a {@link Column} representing a column of the table in the db
+     * @param value the desired value of the column. Can be null
+     * @return the builder this was invoked on
+     */
     public DeleteBuilder where(final Column column, final Object value) {
         this.clauses.put(column, value);
         return this;
     }
 
+    /**
+     * Builds a DELETE statement for the table and where clauses supplied to this builder.
+     * Only be visible for testing.
+     *
+     * @return DELETE statement
+     */
     String createStatement() {
         return new StringJoiner(" ", DELETE, ";")
                 .add(FROM)
@@ -43,6 +62,13 @@ public class DeleteBuilder {
                 .toString();
     }
 
+    /**
+     * Builds the PreparedStatement and sets the necessary values for any where clauses
+     *
+     * @param connection connection to the db to perform this statement on
+     * @return a prepared statement that can be executed
+     * @throws SQLException if the table name was empty or an error occurred performing the query
+     */
     public OptionalInt execute(final Connection connection) throws SQLException {
         if (table == null || clauses.isEmpty()) {
             throw new SQLException("Need both table and at least one where clause");
