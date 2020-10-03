@@ -19,6 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,12 +45,25 @@ public class SelectBuilderTest {
     }
 
     @Test
+    void testGroupBy() throws SQLException {
+        final String expectedSql = "SELECT * FROM test_table GROUP BY varCharCol, intCol;";
+        final SelectBuilder<ResultSet> builder = SelectBuilder.resultSetSelector()
+                .table("test_table")
+                .groupBy(TestColumns.VAR_CHAR)
+                .groupBy(TestColumns.INT);
+
+        assertEquals(expectedSql, builder.createStatement());
+        assertTrue(builder.getOne(mockDB.connection).isPresent());
+    }
+
+    @Test
     void testOrderBy() throws SQLException {
-        final String expectedSql = "SELECT * FROM test_table ORDER BY varCharCol ASC, intCol DESC;";
+        final String expectedSql = "SELECT * FROM test_table ORDER BY varCharCol ASC, intCol DESC, arrayCol;";
         final SelectBuilder<ResultSet> builder = SelectBuilder.resultSetSelector()
                 .table("test_table")
                 .orderBy(TestColumns.VAR_CHAR, OrderType.ASC)
-                .orderBy(TestColumns.INT, OrderType.DESC);
+                .orderBy(TestColumns.INT, OrderType.DESC)
+                .orderBy(TestColumns.ARRAY, null);
 
         assertEquals(expectedSql, builder.createStatement());
         assertTrue(builder.getOne(mockDB.connection).isPresent());

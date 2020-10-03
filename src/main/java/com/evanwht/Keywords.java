@@ -16,6 +16,7 @@ class Keywords {
     static final String INTO = "INTO";
     static final String VALUES = "VALUES";
     static final String WHERE = "WHERE";
+    static final String GROUP_BY = "GROUP BY";
     static final String ORDER_BY = "ORDER BY";
 
 }

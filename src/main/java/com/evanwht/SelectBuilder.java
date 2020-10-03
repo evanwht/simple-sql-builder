@@ -14,6 +14,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import static com.evanwht.Keywords.FROM;
+import static com.evanwht.Keywords.GROUP_BY;
 import static com.evanwht.Keywords.ORDER_BY;
 import static com.evanwht.Keywords.SELECT;
 import static com.evanwht.Keywords.WHERE;
@@ -29,6 +30,7 @@ public class SelectBuilder<T> {
     private final List<String> columns = new ArrayList<>();
     private final Map<Column, Object> clauses = new LinkedHashMap<>();
     private final Map<String, OrderType> orders = new HashMap<>();
+    private final List<String> groupings = new ArrayList<>();
     private final ResultMapper<T> resultMapper;
 
     /**
@@ -92,9 +94,21 @@ public class SelectBuilder<T> {
     }
 
     /**
+     * Adds a column to group the query results by.
+     *
+     * @param column a {@link Column} representing a column of the table in the db
+     * @return the builder this was invoked on
+     */
+    public SelectBuilder<T> groupBy(final Column column) {
+        groupings.add(column.getName());
+        return this;
+    }
+
+    /**
      * Adds a column to order the query results by.
      *
      * @param column a {@link Column} representing a column of the table in the db
+     * @param orderType how to order the column. Can be null
      * @return the builder this was invoked on
      */
     public SelectBuilder<T> orderBy(final Column column, final OrderType orderType) {
@@ -122,10 +136,14 @@ public class SelectBuilder<T> {
                           .map(e -> e.getKey().getName() + (e.getValue() == null ? " IS NULL" : " = ?"))
                           .collect(Collectors.joining(" AND ")));
         }
+        if (!groupings.isEmpty()) {
+            sj.add(GROUP_BY)
+                    .add(String.join(", ", groupings));
+        }
         if (!orders.isEmpty()) {
             sj.add(ORDER_BY)
                     .add(orders.entrySet().stream()
-                    .map(e -> e.getKey() + " " + e.getValue().name())
+                    .map(e -> e.getKey() + (e.getValue() == null ? "" : " " + e.getValue().name()))
                     .collect(Collectors.joining(", ")));
         }
         return sj.toString();
