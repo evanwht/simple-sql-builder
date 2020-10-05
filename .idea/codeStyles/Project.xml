@@ -24,8 +24,5 @@
         </value>
       </option>
     </JetCodeStyleSettings>
-    <codeStyleSettings language="JAVA">
-      <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
-    </codeStyleSettings>
   </code_scheme>
 </component>

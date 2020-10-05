@@ -20,24 +20,24 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/evanwht1/simple-sql-builder/issues</url>
+        <url>https://github.com/evanwht/simple-sql-builder/issues</url>
     </issueManagement>
 
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>https://github.com/evanwht1/simple-sql-builder/blob/main/LICENSE</url>
+            <url>https://github.com/evanwht/simple-sql-builder/blob/main/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <scm>
-        <url>https://github.com/evanwht1/simple-sql-builder</url>
+        <url>https://github.com/evanwht/simple-sql-builder</url>
         <connection>
-            scm:git:git://github.com/evanwht1/simple-sql-builder.git
+            scm:git:git://github.com/evanwht/simple-sql-builder.git
         </connection>
         <developerConnection>
-            scm:git:ssh://git@github.com:evanwht1/simple-sql-builder.git
+            scm:git:ssh://git@github.com:evanwht/simple-sql-builder.git
         </developerConnection>
     </scm>
 
