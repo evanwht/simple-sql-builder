@@ -1,6 +1,4 @@
-package com.evanwht;
-
-import org.junit.jupiter.api.Test;
+package com.evanwht.sql;
 
 import java.sql.Array;
 import java.sql.Connection;
@@ -10,11 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyChar;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

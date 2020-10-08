@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

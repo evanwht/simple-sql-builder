@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 /**
  * SQL keywords

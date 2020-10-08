@@ -1,15 +1,12 @@
-package com.evanwht;
+package com.evanwht.sql;
 
+import com.evanwht.sql.SelectBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.internal.matchers.Or;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.swing.*;
 import java.sql.Array;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -19,9 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author evanwht1@gmail.com

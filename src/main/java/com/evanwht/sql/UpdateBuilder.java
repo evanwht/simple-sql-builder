@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +9,9 @@ import java.util.OptionalInt;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-import static com.evanwht.Keywords.SET;
-import static com.evanwht.Keywords.UPDATE;
-import static com.evanwht.Keywords.WHERE;
+import static com.evanwht.sql.Keywords.SET;
+import static com.evanwht.sql.Keywords.UPDATE;
+import static com.evanwht.sql.Keywords.WHERE;
 
 /**
  * Builds prepared statements for simple UPDATE statements.

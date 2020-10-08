@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 /**
  * Represents a column in a table of a database.

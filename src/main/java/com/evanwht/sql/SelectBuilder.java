@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +13,11 @@ import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-import static com.evanwht.Keywords.FROM;
-import static com.evanwht.Keywords.GROUP_BY;
-import static com.evanwht.Keywords.ORDER_BY;
-import static com.evanwht.Keywords.SELECT;
-import static com.evanwht.Keywords.WHERE;
+import static com.evanwht.sql.Keywords.FROM;
+import static com.evanwht.sql.Keywords.GROUP_BY;
+import static com.evanwht.sql.Keywords.ORDER_BY;
+import static com.evanwht.sql.Keywords.SELECT;
+import static com.evanwht.sql.Keywords.WHERE;
 
 /**
  * Builds prepared statements for simple SELECT queries.

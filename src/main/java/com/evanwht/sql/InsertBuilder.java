@@ -1,4 +1,4 @@
-package com.evanwht;
+package com.evanwht.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +11,9 @@ import java.util.OptionalLong;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-import static com.evanwht.Keywords.INSERT;
-import static com.evanwht.Keywords.INTO;
-import static com.evanwht.Keywords.VALUES;
+import static com.evanwht.sql.Keywords.INSERT;
+import static com.evanwht.sql.Keywords.INTO;
+import static com.evanwht.sql.Keywords.VALUES;
 
 /**
  * Builds prepared statements for simple INSERT statements.

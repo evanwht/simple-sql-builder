@@ -1,4 +1,6 @@
-package com.evanwht;
+package com.evanwht.sql;
+
+import com.evanwht.sql.SelectBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
