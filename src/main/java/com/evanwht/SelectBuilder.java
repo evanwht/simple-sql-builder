@@ -55,7 +55,7 @@ public class SelectBuilder<T> {
 
     /**
      * creates a SelectBuilder that returns the ResultSet without mapping.
-     * @return a new instance of a SelectBuilder\<ResultSet\>
+     * @return a new instance of a SelectBuilder that returns a ResultSet
      */
     public static SelectBuilder<ResultSet> resultSetSelector() {
         return new SelectBuilder<>(rs -> rs);

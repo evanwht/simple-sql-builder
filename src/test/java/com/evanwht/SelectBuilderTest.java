@@ -27,7 +27,8 @@ import static org.mockito.Mockito.when;
  * @author evanwht1@gmail.com
  */
 @ExtendWith(MockitoExtension.class)
-public class SelectBuilderTest {
+public class
+SelectBuilderTest {
 
     private final MockDB mockDB = new MockDB();
 
