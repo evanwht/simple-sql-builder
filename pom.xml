@@ -6,7 +6,7 @@
 
     <groupId>com.evanwht.simple-sql-builder</groupId>
     <artifactId>simple-sql-builder</artifactId>
-    <version>1.0</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Simple SQL Builders</name>

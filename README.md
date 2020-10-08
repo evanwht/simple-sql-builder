@@ -9,12 +9,12 @@ You can find this library on maven central
 <dependency>
   <groupId>com.evanwht.simple-sql-builder</groupId>
   <artifactId>simple-sql-builder</artifactId>
-  <version>0.1</version>
+  <version>1.1</version>
 </dependency>
 ```
 #### gradle
 ```groovy
-compile 'com.evanwht:simple-sql-builder:1.0' 
+compile 'com.evanwht.simple-sql-builder:simple-sql-builder:1.1' 
 ```
 
 ## Usage
