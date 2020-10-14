@@ -7,14 +7,14 @@ You can find this library on maven central
 #### Maven
 ```xml
 <dependency>
-  <groupId>com.evanwht.simple-sql-builder</groupId>
+  <groupId>com.evanwht</groupId>
   <artifactId>simple-sql-builder</artifactId>
   <version>1.1</version>
 </dependency>
 ```
 #### gradle
 ```groovy
-compile 'com.evanwht.simple-sql-builder:simple-sql-builder:1.1' 
+compile 'com.evanwht:simple-sql-builder:1.1' 
 ```
 
 ## Usage
